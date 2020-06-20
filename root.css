@@ -1,0 +1,62 @@
+:root {
+  --base: rgb(233, 255, 255);
+
+  --hueBasic: 10;
+  --huePurple: 275;
+  --hueRed: 5;
+
+  --primaryHue: var(--hueBasic);
+  --secondaryHue: calc(var(--primaryHue) + 150);
+  --complementaryHue: calc(var(--primaryHue) + 210);
+
+  --baseSaturation: 100%;
+  --baseLumnosity: 80%;
+  --baseDarkLumnosity: calc(var(--baseLumnosity) * 0.6);
+  --baseDarkSaturation: calc(var(--baseSaturation) * 0.4);
+
+  --borderSize: 3px;
+  --baseOpacity: 1;
+
+  --primaryColor: hsla(
+    var(--primaryHue),
+    var(--baseSaturation),
+    var(--baseLumnosity),
+    var(--baseOpacity)
+  );
+  --primaryDarkColor: hsla(
+    var(--primaryHue),
+    var(--baseDarkSaturation),
+    var(--baseDarkLumnosity),
+    var(--baseOpacity)
+  );
+
+  --secondaryColor: hsla(
+    var(--secondaryHue),
+    var(--baseSaturation),
+    var(--baseLumnosity),
+    var(--baseOpacity)
+  );
+  --secondaryDarkColor: hsla(
+    var(--secondaryHue),
+    var(--baseDarkSaturation),
+    var(--baseDarkLumnosity),
+    var(--baseOpacity)
+  );
+
+  --complementaryColor: hsla(
+    var(--complementaryHue),
+    var(--baseSaturation),
+    var(--baseLumnosity),
+    var(--baseOpacity)
+  );
+  --complementaryDarkColor: hsla(
+    var(--complementaryHue),
+    var(--baseDarkSaturation),
+    var(--baseDarkLumnosity),
+    var(--baseOpacity)
+  );
+
+  --primaryBorder: var(--borderSize) solid var(--primaryDarkColor);
+  --secondaryBorder: var(--borderSize) solid var(--secondaryDarkColor);
+  --complementaryBorder: var(--borderSize) solid var(--complementaryDarkColor);
+}
