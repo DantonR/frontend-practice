@@ -20,7 +20,7 @@ body {
 
 main {
   padding-top: 48px;
-  max-width: 600px;
+  max-width: var(--mainWidth);
   margin: 0 auto;
 }
 
@@ -100,4 +100,29 @@ h1 {
 .custom-table__d {
   padding: 26px 15px 16px 15px;
   color: black;
+}
+
+.colour-square {
+  width: var(--baseSize);
+  height: var(--baseSize);
+  background: black;
+  margin: 5px var(--marginSize);
+  display: inline-block;
+}
+
+.colour-square-1 {
+  margin-left: 0;
+  background: var(--primaryColor);
+}
+
+.colour-square-2 {
+  background: var(--primaryDarkColor);
+}
+
+.colour-square-3 {
+  background: var(--secondaryColor);
+}
+.colour-square-4 {
+  background: var(--secondaryDarkColor);
+  margin-right: 0;
 }

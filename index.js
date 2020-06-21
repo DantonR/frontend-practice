@@ -22,7 +22,7 @@ readTextFile("./MOCK_DATA.json", function (text) {
 });
 
 function _200620(data) {
-  let firstTen = data.slice(0, 18);
+  let firstTen = data.slice(0, 5);
   firstTen.forEach((element) => {
     element.id = Math.floor(Math.random() * Math.floor(10));
   });
@@ -39,20 +39,44 @@ function _200620(data) {
     m.appendChild(colourPicker);
   }
 
-  function createNumberSlider() {
+  function createNumberSlider(max, v) {
     let slider = d.createElement("input");
     slider.type = "range";
     slider.min = "0";
-    slider.max = "360";
+    slider.max = max;
+    if (max > 500) {
+      slider.style.width = "100%";
+    }
+    slider.dataset.variable = v;
     slider.addEventListener("input", handlerSliderInput);
-    m.prepend(slider);
+    b.prepend(slider);
   }
-  createNumberSlider();
+
+  createNumberSlider("1000", "--mainWidth");
+  createNumberSlider("1000", "--baseSize");
+  createNumberSlider("50", "--marginSize");
+  createNumberSlider("100", "--baseLumnosity");
+  createNumberSlider("100", "--baseSaturation");
+  createNumberSlider("360", "--hueBasic");
   let style = document.documentElement.style;
   let style2 = document.styleSheets[1].cssRules[0].style;
 
   function handlerSliderInput(e) {
-    style.setProperty("--hueBasic", e.target.value);
+    let variable = e.target.dataset.variable;
+    let value = e.target.value;
+    if (variable == "--baseSaturation" || variable == "--baseLumnosity") {
+      style.setProperty(variable, e.target.value + "%");
+    } else if (
+      variable == "--marginSize" ||
+      variable == "--baseSize" ||
+      variable == "--mainWidth"
+    ) {
+      console.log(value);
+
+      style.setProperty(variable, value + "px");
+    } else {
+      style.setProperty(variable, e.target.value);
+    }
   }
 
   let table = d.createElement("table");
@@ -88,4 +112,17 @@ function _200620(data) {
     td.innerHTML = name;
     tr.appendChild(td);
   }
+
+  function createColourSquares(num) {
+    let colourSq = d.createElement("div");
+    colourSq.className = "colour-square";
+    colourSq.classList.add("colour-square-" + num);
+    m.appendChild(colourSq);
+  }
+
+  for (let i = 1; i < 5; i++) {
+    createColourSquares(i);
+  }
+
+  let squares = d.querySelectorAll(".colour-square");
 }

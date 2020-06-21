@@ -1,16 +1,20 @@
 :root {
   --base: rgb(233, 255, 255);
 
-  --hueBasic: 10;
+  --hueBasic: 40;
   --huePurple: 275;
   --hueRed: 5;
+
+  --marginSize: 5px;
+  --baseSize: 25px;
+  --mainWidth: 500px;
 
   --primaryHue: var(--hueBasic);
   --secondaryHue: calc(var(--primaryHue) + 150);
   --complementaryHue: calc(var(--primaryHue) + 210);
 
-  --baseSaturation: 100%;
-  --baseLumnosity: 80%;
+  --baseSaturation: 70%;
+  --baseLumnosity: 49%;
   --baseDarkLumnosity: calc(var(--baseLumnosity) * 0.6);
   --baseDarkSaturation: calc(var(--baseSaturation) * 0.4);
 
