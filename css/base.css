@@ -1,0 +1,87 @@
+@import "./root.css";
+
+html,
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: var(--primaryDarkColor);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgb(20, 20, 20);
+  font-weight: 400;
+  font-family: "Founders Grotesk Test";
+}
+
+main {
+  padding-top: 48px;
+  max-width: var(--mainWidth);
+  min-width: 500px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: var(--primaryColor);
+}
+
+.style-controller {
+  height: 20px;
+  transition: all 0.3s;
+}
+
+.style-controller--open {
+  height: 100px;
+}
+
+.accordion {
+  --height: 25px;
+  background: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: var(--height);
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.accordion:hover {
+  background-color: antiquewhite;
+}
+
+.panel {
+  padding: 0px 20px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  position: absolute;
+  top: 80px;
+  left: 0;
+}
+
+.panel__inner {
+  padding: 20px;
+}
+
+.custom-slider {
+  width: 100%;
+}
+
+.accordion-icon {
+  width: 25px;
+  height: 2px;
+  background: black;
+}
+
+.accordion-icon-container {
+  transform: rotate(45deg);
+}
+
+.icon-1 {
+  transform: rotate(90deg);
+  transform-origin: 50%;
+}

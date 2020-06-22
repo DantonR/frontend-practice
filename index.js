@@ -1,7 +1,37 @@
-const d = document;
-const w = window;
-const m = document.querySelector("main");
-const b = document.querySelector("body");
+import { myFunction } from "./200622_flexbox.js";
+
+const global = {
+  d: document,
+  w: window,
+  m: document.querySelector("main"),
+  b: document.querySelector("body"),
+};
+
+console.dir(localStorage);
+
+document.documentElement.style.setProperty("--hueBasic", localStorage.hueBasic);
+document.documentElement.style.setProperty(
+  "--baseSaturation",
+  localStorage.baseSaturation
+);
+document.documentElement.style.setProperty(
+  "--mainWidth",
+  localStorage.mainWidth
+);
+
+function changeColour(e) {
+  let prop = this.dataset.prop;
+  let suffix = this.dataset.suffix;
+  suffix == "undefined" ? (suffix = "") : null;
+
+  document.documentElement.style.setProperty(
+    this.dataset.prop,
+    e.target.value + suffix
+  );
+
+  let newProp = prop.replace("--", "");
+  localStorage.setItem(newProp, e.target.value + suffix);
+}
 
 function readTextFile(file, callback) {
   var rawFile = new XMLHttpRequest();
@@ -15,114 +45,90 @@ function readTextFile(file, callback) {
   rawFile.send(null);
 }
 
+function linkToCss() {
+  var head = document.getElementsByTagName("HEAD")[0];
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = "200622_flexbox.css";
+  head.appendChild(link);
+}
+
+linkToCss();
+
+function createSlider(label, labelName, className, dataProp, max, suffix) {
+  let slider = `<label for='${labelName}'>${label}</label><br/>`;
+  slider += `<input class='custom-slider ${className}' data-prop=${dataProp} data-suffix=${suffix} type='range' max=${max} name=${labelName}/>`;
+  return slider;
+}
+
+function createStyleController() {
+  let accordion = document.createElement("button");
+  accordion.className = "accordion";
+  let icons = "<div class='accordion-icon-container'>";
+  icons += "<div class='accordion-icon icon-1'></div>";
+  icons += "<div class='accordion-icon icon-2'></div>";
+  icons += "</div>";
+  accordion.innerHTML = icons;
+  global.m.prepend(accordion);
+
+  let panel = document.createElement("div");
+  panel.className = "panel";
+  let panelInnerHtml = "<div class='panel__inner'>";
+  panelInnerHtml += createSlider(
+    "Choose a Color",
+    "colourPicker",
+    "colour-picker",
+    "--hueBasic",
+    "360"
+  );
+  panelInnerHtml += createSlider(
+    "Choose Saturation",
+    "satPicker",
+    "sat-picker",
+    "--baseSaturation",
+    "100",
+    "%"
+  );
+  panelInnerHtml += createSlider(
+    "Choose Width",
+    "widthPicker",
+    "width-picker",
+    "--mainWidth",
+    "1000",
+    "px"
+  );
+  panelInnerHtml += "</div>";
+
+  panel.innerHTML = panelInnerHtml;
+  accordion.parentNode.insertBefore(panel, accordion.nextSibling);
+
+  let colourInput = document.querySelectorAll(".custom-slider");
+  colourInput.forEach((input) => input.addEventListener("input", changeColour));
+
+  var acc = global.d.querySelectorAll(".accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+
+      var panel = this.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  }
+}
+createStyleController();
+
+// createStyleController();
+
 //usage:
 readTextFile("./MOCK_DATA.json", function (text) {
   var data = JSON.parse(text);
-  _200620(data);
+  let sliced = data.slice(0, 5);
+  myFunction(sliced, global);
 });
-
-function _200620(data) {
-  let firstTen = data.slice(0, 5);
-  firstTen.forEach((element) => {
-    element.id = Math.floor(Math.random() * Math.floor(10));
-  });
-
-  let sorted = firstTen.sort((a, b) => (a.id > b.id ? 1 : -1));
-
-  sorted = firstTen.sort((a, b) => (a.first_name > b.first_name ? 1 : -1));
-
-  function createColourPicker() {
-    let colourPicker = d.createElement("input");
-    colourPicker.type = "color";
-    colourPicker.className = "colour-picker";
-    colourPicker.id = "colourPicker";
-    m.appendChild(colourPicker);
-  }
-
-  function createNumberSlider(max, v) {
-    let slider = d.createElement("input");
-    slider.type = "range";
-    slider.min = "0";
-    slider.max = max;
-    if (max > 500) {
-      slider.style.width = "100%";
-    }
-    slider.dataset.variable = v;
-    slider.addEventListener("input", handlerSliderInput);
-    b.prepend(slider);
-  }
-
-  createNumberSlider("1000", "--mainWidth");
-  createNumberSlider("1000", "--baseSize");
-  createNumberSlider("50", "--marginSize");
-  createNumberSlider("100", "--baseLumnosity");
-  createNumberSlider("100", "--baseSaturation");
-  createNumberSlider("360", "--hueBasic");
-  let style = document.documentElement.style;
-  let style2 = document.styleSheets[1].cssRules[0].style;
-
-  function handlerSliderInput(e) {
-    let variable = e.target.dataset.variable;
-    let value = e.target.value;
-    if (variable == "--baseSaturation" || variable == "--baseLumnosity") {
-      style.setProperty(variable, e.target.value + "%");
-    } else if (
-      variable == "--marginSize" ||
-      variable == "--baseSize" ||
-      variable == "--mainWidth"
-    ) {
-      console.log(value);
-
-      style.setProperty(variable, value + "px");
-    } else {
-      style.setProperty(variable, e.target.value);
-    }
-  }
-
-  let table = d.createElement("table");
-  table.className = "custom-table";
-  m.appendChild(table);
-
-  let keys = Object.keys(sorted[0]);
-  keys = keys.splice(1, 4);
-
-  keys.forEach((e) => {
-    let th = d.createElement("th");
-    th.className = "custom-table__th";
-
-    th.innerHTML = e;
-    table.appendChild(th);
-  });
-
-  sorted.forEach((element) => {
-    let tr = d.createElement("tr");
-    tr.className = "custom-table__r";
-    table.appendChild(tr);
-
-    createTd(element.first_name, tr);
-    createTd(element.last_name, tr);
-    createTd(element.email, tr);
-    createTd(element.gender, tr);
-  });
-
-  function createTd(name, tr) {
-    let rows = d.querySelectorAll(".custom-table__r");
-    let td = d.createElement("td");
-    td.className = "custom-table__d";
-    td.innerHTML = name;
-    tr.appendChild(td);
-  }
-
-  function createColourSquares(num) {
-    let colourSq = d.createElement("div");
-    colourSq.className = "colour-square";
-    colourSq.classList.add("colour-square-" + num);
-    m.appendChild(colourSq);
-  }
-
-  for (let i = 1; i < 5; i++) {
-    createColourSquares(i);
-  }
-
-  let squares = d.querySelectorAll(".colour-square");
-}

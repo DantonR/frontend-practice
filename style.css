@@ -1,27 +1,7 @@
-@import "./root.css";
-
 img {
   padding: var(--spacing);
   background: var(--base);
   filter: blur(var(--blur));
-}
-
-html,
-body {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  background: rgb(243, 243, 243);
-  font-size: 16px;
-  color: white;
-  font-weight: 100;
-  font-family: "Founders Grotesk Test";
-}
-
-main {
-  padding-top: 48px;
-  max-width: var(--mainWidth);
-  margin: 0 auto;
 }
 
 .box {
@@ -65,7 +45,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 h1 {
-  color: var(--base);
+  color: var(--primaryColor);
 }
 
 .custom-table {

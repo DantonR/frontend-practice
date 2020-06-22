@@ -1,0 +1,5 @@
+@import "./css/base.css";
+
+.box-container {
+  flex-direction: column;
+}
