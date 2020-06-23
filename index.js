@@ -8,6 +8,8 @@ const global = {
 };
 
 console.dir(localStorage);
+let testArray = [1, 2, 3, 4];
+localStorage.setItem("array", testArray);
 
 document.documentElement.style.setProperty("--hueBasic", localStorage.hueBasic);
 document.documentElement.style.setProperty(
@@ -57,8 +59,13 @@ function linkToCss() {
 linkToCss();
 
 function createSlider(label, labelName, className, dataProp, max, suffix) {
+  let keyName = dataProp.replace("--", "");
+  let keyValue = localStorage.getItem(keyName);
+  keyValue = keyValue.replace("%", "");
+  keyValue = keyValue.replace("px", "");
+
   let slider = `<label for='${labelName}'>${label}</label><br/>`;
-  slider += `<input class='custom-slider ${className}' data-prop=${dataProp} data-suffix=${suffix} type='range' max=${max} name=${labelName}/>`;
+  slider += `<input class='custom-slider ${className}' data-prop=${dataProp} data-suffix=${suffix} type='range' max=${max} name=${labelName} value="${keyValue}"/>`;
   return slider;
 }
 
