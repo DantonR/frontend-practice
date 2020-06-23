@@ -132,6 +132,8 @@ function createStyleController() {
 createStyleController();
 
 document.querySelector(".accordion").addEventListener("click", () => {
+  let a = document.querySelector(".accordion");
+  a.classList.toggle("accordion--active");
   let l = document.querySelector(".accordion-icon-container");
   l.classList.toggle("accordion-icon-container--active");
 });

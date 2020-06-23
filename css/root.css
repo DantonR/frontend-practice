@@ -63,4 +63,6 @@
   --primaryBorder: var(--borderSize) solid var(--primaryDarkColor);
   --secondaryBorder: var(--borderSize) solid var(--secondaryDarkColor);
   --complementaryBorder: var(--borderSize) solid var(--complementaryDarkColor);
+
+  --selectorPositioning: 20px;
 }

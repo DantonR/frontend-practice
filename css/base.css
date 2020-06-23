@@ -38,19 +38,24 @@ h1 {
   background: #eee;
   color: #444;
   cursor: pointer;
-  padding: var(--height);
+  padding: var(--selectorPositioning);
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: var(--selectorPositioning);
+  left: var(--selectorPositioning);
   text-align: left;
   border: none;
+  border-radius: 100%;
   outline: none;
   transition: 0.4s;
   box-shadow: 0px 0px 14px 2px #2a3446a1;
 }
 
 .accordion:hover {
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
+}
+
+.accordion--active {
+  background: black;
 }
 
 .panel {
@@ -61,7 +66,7 @@ h1 {
   transition: max-height 0.2s ease-out;
   position: absolute;
   top: 80px;
-  left: 0;
+  left: var(--selectorPositioning);
 }
 
 .panel__inner {
